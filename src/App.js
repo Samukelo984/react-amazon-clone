@@ -5,6 +5,7 @@ import Home from "./Components/Home/Home";
 import Products from "./Components/Products/Products";
 import ProductDetails from "./Components/Products/ProductDetails"; 
 import Login from "./Components/Login"; 
+import NotFound from './Components/NotFound/NotFound';
  
 const App = () => {  
   return ( 
@@ -17,7 +18,7 @@ const App = () => {
           <Redirect to="/home" />  
         </Route>
      <Route path="/home">
-      <Home /> 
+      <Home />  
     </Route>
 
     <Route path="/products" exact> 
@@ -31,6 +32,10 @@ const App = () => {
     <Route path="/login">
       <Login />
     </Route>  
+
+    <Route path="*">
+      <NotFound /> 
+    </Route> 
     </Switch> 
 
     </main>

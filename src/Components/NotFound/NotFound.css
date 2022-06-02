@@ -1,0 +1,11 @@
+.not-found {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    background-color: white; 
+}
+
+.img-top  {
+    margin-top: 50px;
+}
