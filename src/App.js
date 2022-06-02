@@ -30,7 +30,7 @@ const App = () => {
 
     <Route path="/login">
       <Login />
-    </Route> 
+    </Route>  
     </Switch> 
 
     </main>
