@@ -1,9 +1,9 @@
 import './App.css';
-import {Route, Switch} from "react-router-dom"; 
+import {Redirect, Route, Switch} from "react-router-dom"; 
 import Header from "./Components/Layout/Header"; 
 import Home from "./Components/Home/Home"
 import Products from './Components/Products/Products';
-import ProductDetails from './Components/ProductDetails';
+import ProductDetails from './Components/ProductDetails'; 
  
 const App = () => { 
   return (
@@ -11,9 +11,12 @@ const App = () => {
       <Header /> 
 
     <main> 
-      <Switch> 
+      <Switch>  
+        <Route path="/" exact> 
+          <Redirect to="/home" /> 
+        </Route>
      <Route path="/home">
-      <Home />
+      <Home /> 
     </Route>
 
     <Route path="/products" exact> 
@@ -21,7 +24,7 @@ const App = () => {
     </Route>
 
     <Route path="/products/:id">
-      <ProductDetails />  
+      <ProductDetails />   
     </Route> 
     </Switch> 
 
