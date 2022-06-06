@@ -5,7 +5,7 @@ const Modal = ({setIsOpen}) => {
   return (
     <Fragment> 
         <div className="modal-div" onClick={() =>setIsOpen(false)} >
-            <div className="modalStyle">  
+            <div className="modalStyle">   
                 <h3>Test Modal</h3>
                 <button onClick={() =>setIsOpen(false)}>
                     Close

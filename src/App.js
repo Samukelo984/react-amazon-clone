@@ -4,7 +4,7 @@ import Header from "./Components/Layout/Header";
 import Home from "./Components/Home/Home"; 
 import Products from "./Components/Products/Products";
 import ProductDetails from "./Components/Products/ProductDetails"; 
-import Login from "./Components/Login"; 
+import Login from "./Components/Login/Login";  
 import NotFound from './Components/NotFound/NotFound';
  
 const App = () => {  
