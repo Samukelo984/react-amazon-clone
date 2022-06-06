@@ -1,13 +1,13 @@
 import "./Header.css"; 
 import React from "react"; 
-import { Link, NavLink } from "react-router-dom"; 
+import { Link } from "react-router-dom"; 
 import SearchIcon from "@mui/icons-material/Search"; 
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket"; 
 
 
 
-const Header = () => {
-  return ( 
+const Header = ({isAuthenticated, onLogout}) => { 
+  return (  
     <header className="header"> 
     <Link to="/">
         <img className="header-logo" src="http://pngimg.com/uploads/amazon/amazon_PNG11.png" alt="Amazon logo" /> 
@@ -18,12 +18,25 @@ const Header = () => {
         </div>
 
         <div className="header-nav">
-            <Link to="/login">
-            <div className="header-option">
-                <span className="header-optionOne">Hello Guest</span>
-                <span className="header-optionTwo"> Sign In</span>
-            </div> 
-            </Link>
+            {isAuthenticated ? 
+             (<Link to="/login">
+             <div className="header-option" onClick={onLogout}>   
+                 <span className="header-optionOne">Hello User</span>
+                 <span className="header-optionTwo"> Sign Out</span>
+             </div> 
+             </Link>)
+             :
+             (<Link to="/login">
+             <div className="header-option">
+                 <span className="header-optionOne">Hello Guest</span>
+                 <span className="header-optionTwo"> Sign In</span>
+             </div> 
+             </Link>)
+             } 
+
+
+
+            
 
             <div className="header-option">
                 <span className="header-optionOne">Returns</span>

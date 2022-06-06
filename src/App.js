@@ -1,3 +1,4 @@
+import React, {useEffect, useState } from "react"; 
 import './App.css';
 import {Redirect, Route, Switch} from "react-router-dom"; 
 import Header from "./Components/Layout/Header"; 
@@ -6,11 +7,33 @@ import Products from "./Components/Products/Products";
 import ProductDetails from "./Components/Products/ProductDetails"; 
 import Login from "./Components/Login/Login";  
 import NotFound from './Components/NotFound/NotFound';
- 
-const App = () => {  
+
+   
+const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const userInfo = localStorage.getItem("isLoggedIn");
+    if (userInfo === "1") {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const loginHandler = (email, password) => {
+    localStorage.setItem("isLoggedIn", "1");
+    setIsLoggedIn(true);
+  };
+
+  const logoutHandler = () => {
+    localStorage.removeItem("isLoggedIn");
+    setIsLoggedIn(false);
+  }; 
+
   return ( 
     <div> 
-      <Header /> 
+      <Header 
+      isAuthenticated={isLoggedIn} 
+      onLogout={logoutHandler} /> 
 
     <main> 
       <Switch>  
@@ -30,7 +53,7 @@ const App = () => {
     </Route> 
 
     <Route path="/login">
-      <Login />
+      <Login onLogin={loginHandler} />
     </Route>  
 
     <Route path="*">
@@ -44,4 +67,4 @@ const App = () => {
 };    
 
 export default App;
-
+ 

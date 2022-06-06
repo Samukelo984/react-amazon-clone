@@ -1,10 +1,10 @@
 import "./Products.css"; 
 import React from "react"; 
-import {Link} from "react-router-dom";
-import Product from "./Product"; 
+// import {Link} from "react-router-dom";
+import Product from "./Product";  
  
 
-const Products = () => {
+const Products = () => { 
   return (
     <>
     <div className="products-row">
