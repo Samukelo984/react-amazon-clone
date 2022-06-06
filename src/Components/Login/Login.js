@@ -1,35 +1,55 @@
-import React, {useState, useRef} from "react"; 
+import React, {useState, useReducer, useEffect} from "react"; 
 import {Link} from "react-router-dom"; 
 import "./Login.css"; 
 
+const reducer = (state, action) => {
+  if(action.type === "EMAIL-INPUT") {
+    return{...state, emailValue:action.payload}; 
+  }
+  if(action.type === "PASS-INPUT") {
+    return{...state, passwordValue:action.payload}; 
+  }
+  return {emailValue:"", passwordValue:""}; 
+}; 
 
 const Login = () => { 
-const emailRef = useRef();
-const passwordRef = useRef(); 
+  const [formIsValid, setFormIsValid] = useState(false);
 
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");  
+  const [state, dispatch] = useReducer(reducer, {
+    emailValue: "",
+    passwordValue: ""
+  });
 
-  // const emailChangeHandler = (event) => {
-  //   setEmail(event.target.value); 
-  // }
+  const { emailValue: email, passwordValue: password } = state;
 
-  // const passwordChangeHandler = (event) => {
-  //   setPassword(event.target.value); 
-  // }
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      console.log("CHECKING FORM VALIDITY");
+      setFormIsValid(email.includes("@") && state.password.trim().length > 6);
+    }, 500);
+    return () => {
+      console.log("CLEANUP HERE");
+      clearTimeout(identifier);
+    };
+  }, [email, password]);
+
+  const emailChangeHandler = (e) => {
+    dispatch({ type: "EMAIL_INPUT", payload: e.target.value });
+  };
+
+  const passwordChangeHandler = (e) => {
+    dispatch({ type: "PASS_INPUT", payload: e.target.value });
+  };
+
+  const signIn = (e) => {
+    e.preventDefault();
+    console.log("Entered Email: ", state.emailValue);
+    console.log("Entered Password: ", state.passwordValue);
+  };
  
-  const signIn = (event) => {
-    event.preventDefault(); 
-    const enteredEmail = emailRef.current.value; 
-    const enteredPassword = passwordRef.current.value;  
-
-    console.log(" email: ", enteredEmail  +  " password: ", enteredPassword);  
-  }
- 
- 
-
   return (
-    <div className="login"> 
+   
+   <div className="login">
        <Link to="/">
          <img className="login-logo"
          src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png"   
@@ -40,15 +60,13 @@ const passwordRef = useRef();
          <form>
            <h5>E-mail</h5>
            <input type="text" 
-          //  value={email} 
-          //  onChange={emailChangeHandler} 
-           ref={emailRef} />
+           value={state.emailValue} 
+          onChange={emailChangeHandler} />
 
            <h5>Password</h5>
            <input type="password" 
-          //  value={password} 
-          //  onChange={passwordChangeHandler} 
-           ref={passwordRef} />   
+           value={state.passwordValue} 
+          onChange={passwordChangeHandler} />   
 
            <button type="submit" 
            className="login-signIn-btn"
@@ -60,10 +78,12 @@ const passwordRef = useRef();
          <p>By signing in, you agree to the terms and conditons of this Amazon clone. 
            Please use our privacy policy and I love you Nthabiseng to view our cookie options and our Internet-based ads notice. 
            </p>
-           <button className="login-register-btn">Create your Amazon account</button>  
+           <button className="login-register-btn">
+             Create your Amazon account
+             </button>  
        </div>
     </div> 
   ) 
-};  
+};    
 
 export default Login;  
